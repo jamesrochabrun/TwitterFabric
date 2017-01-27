@@ -10,13 +10,13 @@ import UIKit
 import TwitterKit
 
 
-//protocol ProfileViewDelegate {
-//    func showVC()
-//}
+protocol ProfileViewDelegate {
+    func showVC()
+}
 
 class ProfileView: UIView {
     
-    //var delegate: ProfileViewDelegate! = nil
+    var delegate: ProfileViewDelegate! = nil
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -74,7 +74,7 @@ class ProfileView: UIView {
     }
     
     func showFollowers() {
-        //delegate.showVC()
+        delegate.showVC()
     }
     
     open func configureViewWithUser(_ user:TWTRUser) {

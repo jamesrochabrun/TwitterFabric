@@ -9,7 +9,7 @@
 import UIKit
 import TwitterKit
 
-class ProfileVC : UIViewController {
+class ProfileVC : UIViewController, ProfileViewDelegate  {
     
     let session = Twitter.sharedInstance().sessionStore.session()
     
@@ -27,17 +27,17 @@ class ProfileVC : UIViewController {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
         view.addSubview(profileView)
-//        profileView.delegate = self
+        profileView.delegate = self
         loadUserInfo()
         //composeTweet()
     }
     
-//    func showVC() {
-//        
-//        let followersVC = FollowersVC()
-//        let navigationVC = UINavigationController(rootViewController: followersVC)
-//        self.present(navigationVC, animated: true, completion: nil)
-//    }
+    func showVC() {
+        
+        let followersVC = FollowersVC()
+        let navigationVC = UINavigationController(rootViewController: followersVC)
+        self.present(navigationVC, animated: true, completion: nil)
+    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
