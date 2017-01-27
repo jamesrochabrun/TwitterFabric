@@ -12,13 +12,20 @@ import TwitterKit
 class UserTweetsFeedVC: UITableViewController {
     
     let session = Twitter.sharedInstance().sessionStore.session()
+    var tweets: [TWTRTweet] = []
+    let cellID = "cell"
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE", style: .plain, target: self, action: #selector(dismissView))
-    
-        view.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        loadUserTweets()
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE", style: .plain, target: self, action: #selector(dismissView))
+
+        //tableView.estimatedRowHeight = 500
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.allowsSelection = true
+        tableView.register(TWTRTweetTableViewCell.self, forCellReuseIdentifier: cellID)
     }
 
     func dismissView() {
@@ -44,13 +51,18 @@ class UserTweetsFeedVC: UITableViewController {
                 print("Error: \(connectionError)")
             }
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [[String: Any]]
-                print("json: \(json)")
-                let tweets = TWTRTweet.tweets(withJSONArray: json)
-                
-                print("Count: \(tweets.count)")
-                //http://stackoverflow.com/questions/29389474/access-twitter-user-timeline-using-fabric-sdk-ios do this
-                
+                if let data = data {
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
+                    print("json: \(json)")
+                    self.tweets = TWTRTweet.tweets(withJSONArray: json) as! [TWTRTweet]
+                    print("TEXT: \(self.tweets.first?.text)")
+                    
+                    print("Count: \(self.tweets.count)")
+                    self.tableView.reloadData()
+                } else {
+                    //SHOW A ALERTCONTROLLER
+                    print("SHOW ALERT CONTROLLER")
+                }
             } catch let jsonError as NSError {
                 print("json error: \(jsonError.localizedDescription)")
             }
@@ -59,14 +71,40 @@ class UserTweetsFeedVC: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return tweets.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TWTRTweetTableViewCell
+//        cell.tweetView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+//        cell.tweetView.linkTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//        cell.tweetView.showBorder = true
+        let tweet = tweets[indexPath.row]
+        cell.configure(with: tweet)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let tweet = tweets[indexPath.row]
+        return TWTRTweetTableViewCell.height(for: tweet, style: .compact, width: view.bounds.width, showingActions: false)
+        
     }
 
+
+
+
+    
 }
+
+
+
+
+
+
+
+
+

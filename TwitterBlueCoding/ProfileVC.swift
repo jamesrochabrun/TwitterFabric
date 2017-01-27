@@ -95,7 +95,7 @@ class ProfileVC : UIViewController {
                 let users  = json["users"] as! [[String: Any]]
                 for user in users {
                     if let twitterUser = TWTRUser(jsonDictionary: user) {
-                        print("USERname = \(twitterUser.name)")
+                        print("USERNAME = \(twitterUser.name)")
                         
                         //ADD THE USER IN AN ARRAY AND DISPLAY DATA
                         //RELOAD TABLEVIEW
