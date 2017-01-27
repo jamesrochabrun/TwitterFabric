@@ -10,6 +10,7 @@ import UIKit
 import TwitterKit
 
 class LoginVC: UIViewController {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +36,9 @@ class LoginVC: UIViewController {
                 print("TOKEN SECRET: \(secretToken)")
             }
             
-            
-            let timeLineVC = TimeLineVC()
-            //let navController = UINavigationController(rootViewController: timeLineVC)
-            self.navigationController?.pushViewController(timeLineVC, animated: true)
-
+            let profileVC = ProfileVC()
+            let navController = UINavigationController(rootViewController: profileVC)
+            self.present(navController, animated:true)
             
             print("SUCCESFULLY LOGGED IN")
         }

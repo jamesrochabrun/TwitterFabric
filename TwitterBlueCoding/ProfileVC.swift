@@ -9,9 +9,11 @@
 import UIKit
 import TwitterKit
 
-class TimeLineVC: UITableViewController {
+class ProfileVC : UIViewController {
     
     let session = Twitter.sharedInstance().sessionStore.session()
+
+    
     let label: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
@@ -21,11 +23,23 @@ class TimeLineVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(label)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
         
         //loadUserInfo()
         //loadUserFollowers()
-        loadUserTweets()
+        //loadUserTweets()
         
+    }
+    
+    func handleLogOut() {
+        do {
+            //try logout
+        } catch let logoutError {
+            print(logoutError)
+        }
+        let userTweetsVC = UserTweetsFeedVC()
+        let navigationVC = UINavigationController(rootViewController: userTweetsVC)
+        self.present(navigationVC, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,38 +103,6 @@ class TimeLineVC: UITableViewController {
                       print("TWITTERUSER NOT INITIALIZED")
                     }
                 }
-            } catch let jsonError as NSError {
-                print("json error: \(jsonError.localizedDescription)")
-            }
-        }
-    }
-    
-    func loadUserTweets() {
-        
-        guard let userID = self.session?.userID else {
-            print("NO USERID")
-            return
-        }
-        let client = TWTRAPIClient(userID: userID)
-        let endPoint = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
-        let params = ["id": userID,
-                      "count": "10"]
-        var clientError : NSError?
-        
-        let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: endPoint, parameters: params, error: &clientError)
-        
-        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-            if connectionError != nil {
-                print("Error: \(connectionError)")
-            }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [[String: Any]]
-                print("json: \(json)")
-                let tweets = TWTRTweet.tweets(withJSONArray: json)
-                
-                print("Count: \(tweets.count)")
-                //http://stackoverflow.com/questions/29389474/access-twitter-user-timeline-using-fabric-sdk-ios do this
-
             } catch let jsonError as NSError {
                 print("json error: \(jsonError.localizedDescription)")
             }
