@@ -22,12 +22,29 @@ class ProfileVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.addSubview(label)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
-        
+
+
         //loadUserInfo()
         //loadUserFollowers()
         //loadUserTweets()
+        composeTweet()
+    }
+    
+    func composeTweet() {
+        
+        let composer = TWTRComposer()
+        // Called from a UIViewController
+        composer.show(from: self) { result in
+            if (result == TWTRComposerResult.cancelled) {
+                print("Tweet composition cancelled")
+            }
+            else {
+                print("Sending tweet!")
+            }
+        }
         
     }
     
