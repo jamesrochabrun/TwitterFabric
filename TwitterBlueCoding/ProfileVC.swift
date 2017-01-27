@@ -12,25 +12,59 @@ import TwitterKit
 class ProfileVC : UIViewController {
     
     let session = Twitter.sharedInstance().sessionStore.session()
-
     
-    let label: UILabel = {
-        let label = UILabel()
-        label.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
-        return label
+    lazy var button: UIButton = {
+        let b = UIButton()
+        b.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
+        b.addTarget(self, action: #selector(showFollowersVC), for: .touchUpInside)
+        b.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        return b
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        view.addSubview(label)
+        view.addSubview(button)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
+        checkIfUserIsLoggedIn()
 
 
         //loadUserInfo()
-        //loadUserFollowers()
-        //loadUserTweets()
-        composeTweet()
+        //composeTweet()
+    }
+    
+    func checkIfUserIsLoggedIn() {
+        
+        if session?.userID == nil {
+            print("session not started")
+            let loginVC = LoginVC()
+            self.present(loginVC, animated: true, completion: nil)
+        } else {
+            print("SESSION: \(session)")
+        }
+    }
+    
+    func handleLogOut() {
+
+        if let uID = session?.userID {
+            Twitter.sharedInstance().sessionStore.logOutUserID((uID))
+        }
+    }
+    
+    func showFollowersVC() {
+        
+        let followersVC = FollowersVC()
+        let navigationVC = UINavigationController(rootViewController: followersVC)
+        self.present(navigationVC, animated: true, completion: nil)
+    }
+    
+    func showUserLastTweetsVC() {
+        
+        let userTweetsVC = UserTweetsFeedVC()
+        let navigationVC = UINavigationController(rootViewController: userTweetsVC)
+        self.present(navigationVC, animated: true, completion: nil)
     }
     
     func composeTweet() {
@@ -45,19 +79,9 @@ class ProfileVC : UIViewController {
                 print("Sending tweet!")
             }
         }
-        
     }
     
-    func handleLogOut() {
-        do {
-            //try logout
-        } catch let logoutError {
-            print(logoutError)
-        }
-        let userTweetsVC = FollowersVC()//UserTweetsFeedVC()
-        let navigationVC = UINavigationController(rootViewController: userTweetsVC)
-        self.present(navigationVC, animated: true, completion: nil)
-    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,7 +107,6 @@ class ProfileVC : UIViewController {
             DispatchQueue.main.async {
                 self.navigationItem.title = u.screenName
                 print("U : \(u.screenName)")
-                self.label.text = u.screenName
                 //CREATE  A SUBVIEW PROFILE FOR USER DATA
             }
         }
