@@ -7,27 +7,87 @@
 //
 
 import UIKit
+import TwitterKit
 
 class FollowersVC: UITableViewController {
+    
+    let session = Twitter.sharedInstance().sessionStore.session()
+    private let cellID = "cell"
+    var twitterUsersArray: [TWTRUser] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadUserFollowers()
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellID)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE", style: .plain, target: self, action: #selector(dismissView))
+    }
+    
+    func dismissView() {
+        self.navigationController?.dismiss(animated: true)
+    }
+    
+    func loadUserFollowers() {
+        
+        guard let userID = self.session?.userID else {
+            print("NO USERID")
+            return
+        }
+        let client = TWTRAPIClient(userID: userID)
+        let endPoint = "https://api.twitter.com/1.1/followers/list.json?"
+        let params = ["id": userID]
+        var clientError : NSError?
+        
+        let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: endPoint, parameters: params, error: &clientError)
+        
+        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+            if connectionError != nil {
+                print("Error: \(connectionError)")
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+                // print("json: \(json)")
+                let users  = json["users"] as! [[String: Any]]
+                for user in users {
+                    if let twitterUser = TWTRUser(jsonDictionary: user) {
+                        print("USERNAME = \(twitterUser.name)")
+                        
+                        //ADD THE USER IN AN ARRAY AND DISPLAY DATA
+                        self.twitterUsersArray.append(twitterUser)
+                        //RELOAD TABLEVIEW
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+
+                    } else {
+                        print("TWITTERUSER NOT INITIALIZED")
+                    }
+                }
+            } catch let jsonError as NSError {
+                print("json error: \(jsonError.localizedDescription)")
+            }
+        }
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return twitterUsersArray.count
     }
-
-
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! UserCell
+        let twitterUser = twitterUsersArray[indexPath.row]
+        cell.textLabel?.text = twitterUser.name
+        cell.detailTextLabel?.text = twitterUser.description
+        cell.profileImageView.loadImageUsingCacheWithURLString(twitterUser.profileImageURL)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
+    }
 }
 
 class UserCell: UITableViewCell {

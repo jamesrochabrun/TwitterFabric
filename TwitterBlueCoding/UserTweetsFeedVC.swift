@@ -13,7 +13,7 @@ class UserTweetsFeedVC: UITableViewController {
     
     let session = Twitter.sharedInstance().sessionStore.session()
     var tweets: [TWTRTweet] = []
-    let cellID = "cell"
+    private let cellID = "cell"
 
 
     override func viewDidLoad() {
@@ -58,8 +58,9 @@ class UserTweetsFeedVC: UITableViewController {
                     print("TEXT: \(self.tweets.first?.text)")
                     
                     print("Count: \(self.tweets.count)")
-                    self.tableView.reloadData()
-                } else {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }                } else {
                     //SHOW A ALERTCONTROLLER
                     print("SHOW ALERT CONTROLLER")
                 }

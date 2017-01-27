@@ -18,6 +18,7 @@
 		7B5F8C0F1E3B040100DC1B89 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F8C0E1E3B040100DC1B89 /* User.swift */; };
 		7B5F8C121E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5F8C111E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift */; };
 		7B66D86F1E3BAD9F0097179D /* FollowersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D86E1E3BAD9F0097179D /* FollowersVC.swift */; };
+		7B66D8711E3BB4130097179D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D8701E3BB4130097179D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		7B5F8C0E1E3B040100DC1B89 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
 		7B5F8C111E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTweetsFeedVC.swift; sourceTree = "<group>"; };
 		7B66D86E1E3BAD9F0097179D /* FollowersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersVC.swift; sourceTree = "<group>"; };
+		7B66D8701E3BB4130097179D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +97,9 @@
 		7B5F8C081E3A96F600DC1B89 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7B5F8C111E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift */,
 				7B5F8BF71E3A832F00DC1B89 /* LoginVC.swift */,
 				7B5F8C091E3A9B3E00DC1B89 /* ProfileVC.swift */,
+				7B5F8C111E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift */,
 				7B66D86E1E3BAD9F0097179D /* FollowersVC.swift */,
 			);
 			name = Controllers;
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				7B5F8C0B1E3B00D800DC1B89 /* Constants.swift */,
+				7B66D8701E3BB4130097179D /* Extensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				7B5F8C0A1E3A9B3E00DC1B89 /* ProfileVC.swift in Sources */,
 				7B5F8BF81E3A832F00DC1B89 /* LoginVC.swift in Sources */,
 				7B66D86F1E3BAD9F0097179D /* FollowersVC.swift in Sources */,
+				7B66D8711E3BB4130097179D /* Extensions.swift in Sources */,
 				7B5F8BF61E3A832F00DC1B89 /* AppDelegate.swift in Sources */,
 				7B5F8C121E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift in Sources */,
 				7B5F8C0F1E3B040100DC1B89 /* User.swift in Sources */,
