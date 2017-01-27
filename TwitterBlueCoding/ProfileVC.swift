@@ -28,30 +28,24 @@ class ProfileVC : UIViewController {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.addSubview(button)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
-        checkIfUserIsLoggedIn()
-
-
+        
         //loadUserInfo()
         //composeTweet()
     }
-    
-    func checkIfUserIsLoggedIn() {
-        
-        if session?.userID == nil {
-            print("session not started")
-            let loginVC = LoginVC()
-            self.present(loginVC, animated: true, completion: nil)
-        } else {
-            print("SESSION: \(session)")
-        }
-    }
+
     
     func handleLogOut() {
-
-        if let uID = session?.userID {
-            Twitter.sharedInstance().sessionStore.logOutUserID((uID))
-        }
+        
+        let userDefaults = UserDefaults.standard
+        let userID = userDefaults.string(forKey: "userID")
+        
+        Twitter.sharedInstance().sessionStore.logOutUserID((userID!))
+        userDefaults.set(session?.userID, forKey: "userID")
+        userDefaults.synchronize()
+        self.dismiss(animated: true)
     }
+    
+
     
     func showFollowersVC() {
         
