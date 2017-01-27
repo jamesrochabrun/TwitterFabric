@@ -28,11 +28,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TwitterBlueCoding/TimeLineVC.swift"
-            timestampString = "507183190.904249"
+            timestampString = "507188317.86838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "setUpUserProfile(_:)"
             landmarkType = "7">
             <Locations>
@@ -44,27 +44,27 @@
                   moduleName = "TwitterBlueCoding"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jamesrochabrun/Desktop/ios/swift/TwitterBlueCoding/TwitterBlueCoding/TimeLineVC.swift"
-                  timestampString = "507182338.633416"
+                  timestampString = "507189740.379657"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "43"
-                  endingLineNumber = "43"
-                  offsetFromSymbolStart = "19">
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "69">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "TwitterBlueCoding.TimeLineVC.setUpUserProfile (Swift.Optional&lt;__ObjC.TWTRUser&gt;) -&gt; ()"
+                  symbolName = "TwitterBlueCoding.TimeLineVC.(setUpUserProfile (Swift.Optional&lt;__ObjC.TWTRUser&gt;) -&gt; ()).(closure #1)"
                   moduleName = "TwitterBlueCoding"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jamesrochabrun/Desktop/ios/swift/TwitterBlueCoding/TwitterBlueCoding/TimeLineVC.swift"
-                  timestampString = "507182338.637734"
+                  timestampString = "507189740.383128"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "43"
-                  endingLineNumber = "43"
-                  offsetFromSymbolStart = "56">
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -76,11 +76,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TwitterBlueCoding/TimeLineVC.swift"
-            timestampString = "507183012.830945"
+            timestampString = "507188317.86838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "loadUserInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -92,11 +92,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TwitterBlueCoding/TimeLineVC.swift"
-            timestampString = "507183012.830945"
+            timestampString = "507188317.86838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "loadUserInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -108,12 +108,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TwitterBlueCoding/TimeLineVC.swift"
-            timestampString = "507183012.830945"
+            timestampString = "507188317.86838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "loadUserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TwitterBlueCoding/TimeLineVC.swift"
+            timestampString = "507189728.105172"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "loadUserTweets()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

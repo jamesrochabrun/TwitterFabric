@@ -11,7 +11,7 @@ import TwitterKit
 
 class TimeLineVC: UITableViewController {
     
-    let userID = Twitter.sharedInstance().sessionStore.session()?.userID
+    let session = Twitter.sharedInstance().sessionStore.session()
     let label: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
@@ -22,8 +22,9 @@ class TimeLineVC: UITableViewController {
         super.viewDidLoad()
         view.addSubview(label)
         
-        loadUserInfo()
-        loadUserFollowers()
+        //loadUserInfo()
+        //loadUserFollowers()
+        loadUserTweets()
         
     }
     
@@ -33,7 +34,7 @@ class TimeLineVC: UITableViewController {
     
     func loadUserInfo() {
         
-        if let uID = self.userID  {
+        if let uID = self.session?.userID  {
             let client = TWTRAPIClient(userID: uID)
             client.loadUser(withID:uID) { (user, error) in
                 if error != nil {
@@ -59,9 +60,13 @@ class TimeLineVC: UITableViewController {
     
     func loadUserFollowers() {
         
-        let client = TWTRAPIClient(userID: self.userID)
+        guard let userID = self.session?.userID else {
+            print("NO USERID")
+            return
+        }
+        let client = TWTRAPIClient(userID: userID)
         let endPoint = "https://api.twitter.com/1.1/followers/list.json?"
-        let params = ["id": self.userID]
+        let params = ["id": userID]
         var clientError : NSError?
         
         let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: endPoint, parameters: params, error: &clientError)
@@ -89,8 +94,36 @@ class TimeLineVC: UITableViewController {
             }
         }
     }
+    
     func loadUserTweets() {
         
-    }
+        guard let userID = self.session?.userID else {
+            print("NO USERID")
+            return
+        }
+        let client = TWTRAPIClient(userID: userID)
+        let endPoint = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
+        let params = ["id": userID,
+                      "count": "10"]
+        var clientError : NSError?
+        
+        let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: endPoint, parameters: params, error: &clientError)
+        
+        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+            if connectionError != nil {
+                print("Error: \(connectionError)")
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [[String: Any]]
+                print("json: \(json)")
+                let tweets = TWTRTweet.tweets(withJSONArray: json)
+                
+                print("Count: \(tweets.count)")
+                //http://stackoverflow.com/questions/29389474/access-twitter-user-timeline-using-fabric-sdk-ios do this
 
+            } catch let jsonError as NSError {
+                print("json error: \(jsonError.localizedDescription)")
+            }
+        }
+    }
 }
