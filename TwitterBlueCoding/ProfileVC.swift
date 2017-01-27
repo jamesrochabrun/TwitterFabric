@@ -13,26 +13,35 @@ class ProfileVC : UIViewController {
     
     let session = Twitter.sharedInstance().sessionStore.session()
     
-    lazy var button: UIButton = {
-        let b = UIButton()
-        b.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
-        b.addTarget(self, action: #selector(showFollowersVC), for: .touchUpInside)
-        b.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-        return b
-    }()
+
+    lazy var profileView: ProfileView = {
+        let view = ProfileView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width))
+        view.center = self.view.center
     
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        view.addSubview(button)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
-        let v = ProfileView(frame: CGRect(x: 50, y: 0, width: view.frame.size.width, height: view.frame.size.width))
-        view.addSubview(v)
-        
-        //loadUserInfo()
+        view.addSubview(profileView)
+//        profileView.delegate = self
+        loadUserInfo()
         //composeTweet()
+    }
+    
+//    func showVC() {
+//        
+//        let followersVC = FollowersVC()
+//        let navigationVC = UINavigationController(rootViewController: followersVC)
+//        self.present(navigationVC, animated: true, completion: nil)
+//    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
     }
 
     
@@ -46,16 +55,7 @@ class ProfileVC : UIViewController {
         userDefaults.synchronize()
         self.dismiss(animated: true)
     }
-    
-
-    
-    func showFollowersVC() {
         
-        let followersVC = FollowersVC()
-        let navigationVC = UINavigationController(rootViewController: followersVC)
-        self.present(navigationVC, animated: true, completion: nil)
-    }
-    
     func showUserLastTweetsVC() {
         
         let userTweetsVC = UserTweetsFeedVC()
@@ -77,8 +77,6 @@ class ProfileVC : UIViewController {
         }
     }
     
-
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -92,20 +90,28 @@ class ProfileVC : UIViewController {
                     print("ERROR LOADING USER INFO")
                 }
                 //handle user pofile setup
-                self.setUpUserProfile(user)
+                if let tweeterUser = user {
+                    self.setUpUserProfile(tweeterUser)
+                }
             }
         }
     }
     
-    func setUpUserProfile(_ user:TWTRUser?) {
+    func setUpUserProfile(_ user:TWTRUser) {
         
-        if let u = user {
             DispatchQueue.main.async {
-                self.navigationItem.title = u.screenName
-                print("U : \(u.screenName)")
+                self.navigationItem.title = user.screenName
+                print("UUUUUUUUUU : \(user.screenName)")
                 //CREATE  A SUBVIEW PROFILE FOR USER DATA
-            }
+                self.profileView.configureViewWithUser(user)
+                
         }
     }
 
 }
+
+
+
+
+
+

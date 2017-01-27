@@ -60,7 +60,8 @@ class UserTweetsFeedVC: UITableViewController {
                     print("Count: \(self.tweets.count)")
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
-                    }                } else {
+                    }
+                } else {
                     //SHOW A ALERTCONTROLLER
                     print("SHOW ALERT CONTROLLER")
                 }
