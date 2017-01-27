@@ -28,6 +28,8 @@ class ProfileVC : UIViewController {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.addSubview(button)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
+        let v = ProfileView(frame: CGRect(x: 50, y: 0, width: view.frame.size.width, height: view.frame.size.width))
+        view.addSubview(v)
         
         //loadUserInfo()
         //composeTweet()
