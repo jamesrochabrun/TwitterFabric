@@ -22,9 +22,10 @@ struct Constants {
         static let buttonBorderWhite = "#ffffff"
     }
     
-    struct UI {
-        static let profileViewSize = 220.0
-        static let navBarHeight = 64.0
-        
+    struct Endpoints {
+        static let mentions = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
+        static let userTimeLine = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
     }
+    
+    
 }

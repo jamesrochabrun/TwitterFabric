@@ -53,11 +53,20 @@ extension MainVC {
     
     //MARK:Buttons actions
     
-    func showUserLastTweetsVC() {
+    func showMentions() {
         
-        let userTweetsVC = UserTweetsFeedVC()
-        let navigationVC = UINavigationController(rootViewController: userTweetsVC)
-        self.present(navigationVC, animated: true, completion: nil)
+        let feedVC = FeedVC()
+        feedVC.endPoint = Constants.Endpoints.mentions
+        let navVC = UINavigationController(rootViewController: feedVC)
+        self.present(navVC, animated: true)
+    }
+    
+    func showUserFeed() {
+        
+        let feedVC = FeedVC()
+        feedVC.endPoint = Constants.Endpoints.userTimeLine
+        let navVC = UINavigationController(rootViewController: feedVC)
+        self.present(navVC, animated: true)
     }
     
     func composeTweet() {

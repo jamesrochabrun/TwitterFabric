@@ -1,28 +1,25 @@
 //
-//  UserTweetsFeedVC.swift
+//  FeedVC.swift
 //  TwitterBlueCoding
 //
-//  Created by James Rochabrun on 1/26/17.
+//  Created by James Rochabrun on 1/27/17.
 //  Copyright © 2017 James Rochabrun. All rights reserved.
 //
 
 import UIKit
 import TwitterKit
 
-class UserTweetsFeedVC: UITableViewController {
+class FeedVC: UITableViewController {
     
     let session = Twitter.sharedInstance().sessionStore.session()
     var tweets: [TWTRTweet] = []
+    var endPoint: String = ""
     private let cellID = "cell"
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadUserTweets()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE", style: .plain, target: self, action: #selector(dismissView))
-
-        //tableView.estimatedRowHeight = 500
+        loadFeed()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.allowsSelection = true
         tableView.register(TWTRTweetTableViewCell.self, forCellReuseIdentifier: cellID)
@@ -32,19 +29,17 @@ class UserTweetsFeedVC: UITableViewController {
         self.navigationController?.dismiss(animated: true)
     }
     
-    func loadUserTweets() {
+    func loadFeed() {
         
         guard let userID = self.session?.userID else {
             print("NO USERID")
             return
         }
         let client = TWTRAPIClient(userID: userID)
-        let endPoint = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
-        let params = ["id": userID,
-                      "count": "10"]
+        let params = ["id": userID, "count" : "20"]
         var clientError : NSError?
         
-        let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: endPoint, parameters: params, error: &clientError)
+        let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: self.endPoint, parameters: params, error: &clientError)
         
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if connectionError != nil {
@@ -73,6 +68,7 @@ class UserTweetsFeedVC: UITableViewController {
 
     // MARK: - Table view data source
 
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return tweets.count
@@ -81,9 +77,6 @@ class UserTweetsFeedVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TWTRTweetTableViewCell
-//        cell.tweetView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-//        cell.tweetView.linkTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        cell.tweetView.showBorder = true
         let tweet = tweets[indexPath.row]
         cell.configure(with: tweet)
         return cell
@@ -98,15 +91,4 @@ class UserTweetsFeedVC: UITableViewController {
 
 
 
-
-    
 }
-
-
-
-
-
-
-
-
-

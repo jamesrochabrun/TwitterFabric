@@ -60,7 +60,7 @@ class MainVC : UIViewController , ProfileViewDelegate {
         button.layer.borderWidth = self.borderWidth
         button.layer.cornerRadius = self.cornerRadius
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
-        button.addTarget(self, action: #selector(showUserLastTweetsVC), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showUserFeed), for: .touchUpInside)
         return button
     }()
     
@@ -77,6 +77,20 @@ class MainVC : UIViewController , ProfileViewDelegate {
         return button
     }()
     
+    lazy var mentionButton : UIButton = {
+        let button = UIButton()
+        button.setTitle("Show Mentions", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
+        button.layer.borderWidth = self.borderWidth
+        button.layer.cornerRadius = self.cornerRadius
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
+        button.addTarget(self, action: #selector(showMentions), for: .touchUpInside)
+        return button
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,17 +100,19 @@ class MainVC : UIViewController , ProfileViewDelegate {
         view.addSubview(tweetButton)
         view.addSubview(tweetsButton)
         view.addSubview(followersButton)
+        view.addSubview(mentionButton)
         profileView.delegate = self
         loadUserInfo()
     }
+
     
     func showVC() {
-        let profileVC = ProfileVC ()
+        
+        let profileVC = ProfileVC()
         profileVC.user = self.currentUser
         let navVC = UINavigationController(rootViewController: profileVC)
         self.present(navVC, animated: true)
     }
-
     
  
     override func viewWillLayoutSubviews() {
@@ -116,6 +132,17 @@ class MainVC : UIViewController , ProfileViewDelegate {
         followersButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
         followersButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
         followersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        followersButton.topAnchor.constraint(equalTo: tweetsButton.bottomAnchor, constant:padding).isActive = true
+        followersButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
+        followersButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
+        followersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        mentionButton.topAnchor.constraint(equalTo: followersButton.bottomAnchor, constant:padding).isActive = true
+        mentionButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
+        mentionButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
+        mentionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
 
     }
 
