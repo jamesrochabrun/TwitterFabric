@@ -93,6 +93,15 @@ class FollowersVC: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 72
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let user = twitterUsersArray[indexPath.row]
+        let profileVC = ProfileVC ()
+        profileVC.user = user
+        let navVC = UINavigationController(rootViewController: profileVC)
+        self.present(navVC, animated: true)
+    }
 }
 
 extension FollowersVC {

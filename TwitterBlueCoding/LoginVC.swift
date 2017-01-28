@@ -32,8 +32,8 @@ class LoginVC: UIViewController {
                 let userDefaults = UserDefaults.standard
                 userDefaults.set(userID, forKey: "userID")
                 userDefaults.synchronize()
-                let profileVC = ProfileVC()
-                let navVC = UINavigationController(rootViewController: profileVC)
+                let mainVC = MainVC()
+                let navVC = UINavigationController(rootViewController: mainVC)
                 self.present(navVC, animated: true)
             }
             
@@ -61,8 +61,8 @@ class LoginVC: UIViewController {
         print("USERID111: \(userID)")
         //si userid no fue guardado
         if userID != nil {
-            let profileVC = ProfileVC()
-            let navVC = UINavigationController(rootViewController: profileVC)
+            let mainVC = MainVC()
+            let navVC = UINavigationController(rootViewController: mainVC)
             self.present(navVC, animated: true)
         }
         

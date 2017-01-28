@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import TwitterKit
 
-extension ProfileVC {
+extension MainVC {
     
     func handleLogOut() {
         
