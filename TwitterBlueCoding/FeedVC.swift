@@ -14,6 +14,7 @@ class FeedVC: UITableViewController {
     let session = Twitter.sharedInstance().sessionStore.session()
     var tweets: [TWTRTweet] = []
     var endPoint: String = ""
+    var isHashtag: Bool = false
     private let cellID = "cell"
 
     override func viewDidLoad() {
@@ -47,15 +48,26 @@ class FeedVC: UITableViewController {
             }
             do {
                 if let data = data {
-                    let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
-                    print("json: \(json)")
-                    self.tweets = TWTRTweet.tweets(withJSONArray: json) as! [TWTRTweet]
-                    print("TEXT: \(self.tweets.first?.text)")
                     
+                    if self.isHashtag {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                        print("json: \(json)")
+                        let arr = json["statuses"] as! [[String: Any]]
+                        self.tweets = TWTRTweet.tweets(withJSONArray: arr) as! [TWTRTweet]
+                        print("TEXT: \(self.tweets.first?.text)")
+                    } else {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
+                        print("json: \(json)")
+                        self.tweets = TWTRTweet.tweets(withJSONArray: json) as! [TWTRTweet]
+                        print("TEXT: \(self.tweets.first?.text)")
+                    }
+  
                     print("Count: \(self.tweets.count)")
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
+                    
+                    
                 } else {
                     //SHOW A ALERTCONTROLLER
                     print("SHOW ALERT CONTROLLER")
@@ -65,6 +77,8 @@ class FeedVC: UITableViewController {
             }
         }
     }
+    
+
 
     // MARK: - Table view data source
 

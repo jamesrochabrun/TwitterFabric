@@ -90,6 +90,19 @@ class MainVC : UIViewController , ProfileViewDelegate {
         return button
     }()
     
+    lazy var hashtagButton : UIButton = {
+        let button = UIButton()
+        button.setTitle("Search with hashtag", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
+        button.layer.borderWidth = self.borderWidth
+        button.layer.cornerRadius = self.cornerRadius
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
+        button.addTarget(self, action: #selector(showFeedFromQuery), for: .touchUpInside)
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,10 +114,10 @@ class MainVC : UIViewController , ProfileViewDelegate {
         view.addSubview(tweetsButton)
         view.addSubview(followersButton)
         view.addSubview(mentionButton)
+        view.addSubview(hashtagButton)
         profileView.delegate = self
         loadUserInfo()
     }
-
     
     func showVC() {
         
@@ -142,6 +155,11 @@ class MainVC : UIViewController , ProfileViewDelegate {
         mentionButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
         mentionButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
         mentionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        hashtagButton.topAnchor.constraint(equalTo: mentionButton.bottomAnchor, constant:padding).isActive = true
+        hashtagButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
+        hashtagButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
+        hashtagButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
 
     }

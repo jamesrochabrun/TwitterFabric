@@ -57,14 +57,50 @@ extension MainVC {
         
         let feedVC = FeedVC()
         feedVC.endPoint = Constants.Endpoints.mentions
+        feedVC.isHashtag = false
         let navVC = UINavigationController(rootViewController: feedVC)
         self.present(navVC, animated: true)
+    }
+    
+    func showFeedFromQuery() {
+        
+        let alertController = UIAlertController(title: "Enter a query ", message: "", preferredStyle: .alert)
+        
+        let searchAction = UIAlertAction(title: "Search", style: .default, handler: {
+            alert -> Void in
+            
+            let queryTextField = alertController.textFields![0] as UITextField
+            if let queryText = queryTextField.text {
+                let feedVC = FeedVC()
+                feedVC.endPoint = Constants.Endpoints.search + queryText
+                feedVC.isHashtag = true
+                let navVC = UINavigationController(rootViewController: feedVC)
+                self.present(navVC, animated: true)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter a word"
+        }
+        
+        alertController.addAction(searchAction)
+        alertController.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     func showUserFeed() {
         
         let feedVC = FeedVC()
         feedVC.endPoint = Constants.Endpoints.userTimeLine
+        feedVC.isHashtag = false
         let navVC = UINavigationController(rootViewController: feedVC)
         self.present(navVC, animated: true)
     }
