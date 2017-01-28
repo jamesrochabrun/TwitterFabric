@@ -20,6 +20,7 @@
 		7B66D86F1E3BAD9F0097179D /* FollowersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D86E1E3BAD9F0097179D /* FollowersVC.swift */; };
 		7B66D8711E3BB4130097179D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D8701E3BB4130097179D /* Extensions.swift */; };
 		7B66D8741E3BEA670097179D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D8731E3BEA670097179D /* ProfileView.swift */; };
+		7B66D8761E3C29D80097179D /* ProfileVC+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D8751E3C29D80097179D /* ProfileVC+handlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		7B66D86E1E3BAD9F0097179D /* FollowersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersVC.swift; sourceTree = "<group>"; };
 		7B66D8701E3BB4130097179D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7B66D8731E3BEA670097179D /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		7B66D8751E3C29D80097179D /* ProfileVC+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileVC+handlers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				7B5F8BF71E3A832F00DC1B89 /* LoginVC.swift */,
 				7B5F8C091E3A9B3E00DC1B89 /* ProfileVC.swift */,
+				7B66D8751E3C29D80097179D /* ProfileVC+handlers.swift */,
 				7B5F8C111E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift */,
 				7B66D86E1E3BAD9F0097179D /* FollowersVC.swift */,
 			);
@@ -288,6 +291,7 @@
 				7B5F8C121E3B1C6F00DC1B89 /* UserTweetsFeedVC.swift in Sources */,
 				7B5F8C0F1E3B040100DC1B89 /* User.swift in Sources */,
 				7B5F8C0C1E3B00D800DC1B89 /* Constants.swift in Sources */,
+				7B66D8761E3C29D80097179D /* ProfileVC+handlers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

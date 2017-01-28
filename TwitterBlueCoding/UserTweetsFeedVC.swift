@@ -18,8 +18,8 @@ class UserTweetsFeedVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         loadUserTweets()
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE", style: .plain, target: self, action: #selector(dismissView))
 
         //tableView.estimatedRowHeight = 500

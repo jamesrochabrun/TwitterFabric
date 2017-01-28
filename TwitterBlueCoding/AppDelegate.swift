@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: LoginVC())
         
+        UINavigationBar.appearance().barTintColor = UIColor.hexStringToUIColor(Constants.APPColor.coral)
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        
         return true
     }
 //    

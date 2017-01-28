@@ -9,108 +9,112 @@
 import UIKit
 import TwitterKit
 
-class ProfileVC : UIViewController, ProfileViewDelegate  {
+class ProfileVC : UIViewController  {
     
     let session = Twitter.sharedInstance().sessionStore.session()
+    var currentUser:TWTRUser?
+    
+    //UIConstants
+    let widthButton: CGFloat = 270.0
+    let heightbutton: CGFloat = 50.0
+    let padding: CGFloat = 12.0
+    let borderWidth: CGFloat = 2.0
+    let cornerRadius: CGFloat = 20
+    let fontSize:CGFloat = 18
     
 
     lazy var profileView: ProfileView = {
-        let view = ProfileView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width))
-        view.center = self.view.center
-    
+        let view = ProfileView(frame: CGRect(x:(self.view.frame.size.width - 210)/2, y: 64, width: 210, height: 210))
         return view
+    }()
+    
+    lazy var gradientView: UIView = {
+        let gv = UIView()
+        gv.frame = self.view.frame
+        let gradient = CAGradientLayer()
+        gradient.frame = self.view.bounds
+        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.coral).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.purple).cgColor]
+        gv.layer.insertSublayer(gradient, at: 0)
+        return gv
+    }()
+    
+    lazy var followersButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Show Followers", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
+        button.layer.borderWidth = self.borderWidth
+        button.layer.cornerRadius = self.cornerRadius
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
+        button.addTarget(self, action: #selector(showFollowers), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var tweetsButton : UIButton = {
+        let button = UIButton()
+        button.setTitle("Show personal Twits", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
+        button.layer.borderWidth = self.borderWidth
+        button.layer.cornerRadius = self.cornerRadius
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
+        button.addTarget(self, action: #selector(showUserLastTweetsVC), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var tweetButton : UIButton = {
+        let button = UIButton()
+        button.setTitle("Make a Twit", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
+        button.layer.borderWidth = self.borderWidth
+        button.layer.cornerRadius = self.cornerRadius
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
+        button.addTarget(self, action: #selector(composeTweet), for: .touchUpInside)
+        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
+        view.addSubview(gradientView)
         view.addSubview(profileView)
-        profileView.delegate = self
+        view.addSubview(tweetButton)
+        view.addSubview(tweetsButton)
+        view.addSubview(followersButton)
+
+
+//        profileView.delegate = self
         loadUserInfo()
-        //composeTweet()
     }
     
-    func showVC() {
-        
-        let followersVC = FollowersVC()
-        let navigationVC = UINavigationController(rootViewController: followersVC)
-        self.present(navigationVC, animated: true, completion: nil)
-    }
-    
+ 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+
+        tweetButton.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: padding).isActive = true
+        tweetButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
+        tweetButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
+        tweetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        tweetsButton.topAnchor.constraint(equalTo: tweetButton.bottomAnchor, constant:padding).isActive = true
+        tweetsButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
+        tweetsButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
+        tweetsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        followersButton.topAnchor.constraint(equalTo: tweetsButton.bottomAnchor, constant:padding).isActive = true
+        followersButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
+        followersButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
+        followersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
     }
 
-    
-    func handleLogOut() {
-        
-        let userDefaults = UserDefaults.standard
-        let userID = userDefaults.string(forKey: "userID")
-        
-        Twitter.sharedInstance().sessionStore.logOutUserID((userID!))
-        userDefaults.set(session?.userID, forKey: "userID")
-        userDefaults.synchronize()
-        self.dismiss(animated: true)
-    }
-        
-    func showUserLastTweetsVC() {
-        
-        let userTweetsVC = UserTweetsFeedVC()
-        let navigationVC = UINavigationController(rootViewController: userTweetsVC)
-        self.present(navigationVC, animated: true, completion: nil)
-    }
-    
-    func composeTweet() {
-        
-        let composer = TWTRComposer()
-        // Called from a UIViewController
-        composer.show(from: self) { result in
-            if (result == TWTRComposerResult.cancelled) {
-                print("Tweet composition cancelled")
-            }
-            else {
-                print("Sending tweet!")
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    func loadUserInfo() {
-        
-        if let uID = self.session?.userID  {
-            let client = TWTRAPIClient(userID: uID)
-            client.loadUser(withID:uID) { (user, error) in
-                if error != nil {
-                    print("ERROR LOADING USER INFO")
-                }
-                //handle user pofile setup
-                if let tweeterUser = user {
-                    self.setUpUserProfile(tweeterUser)
-                }
-            }
-        }
-    }
-    
-    func setUpUserProfile(_ user:TWTRUser) {
-        
-            DispatchQueue.main.async {
-                self.navigationItem.title = user.screenName
-                print("UUUUUUUUUU : \(user.screenName)")
-                //CREATE  A SUBVIEW PROFILE FOR USER DATA
-                self.profileView.configureViewWithUser(user)
-                
-        }
-    }
 
 }
-
-
 
 
 
