@@ -15,10 +15,15 @@ class FeedVC: UITableViewController {
     var tweets: [TWTRTweet] = []
     var endPoint: String = ""
     var isHashtag: Bool = false
+    var currentUser:TWTRUser?
     private let cellID = "cell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let u = self.currentUser {
+            setUpNavBarWithUser(user:u)
+        }
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE", style: .plain, target: self, action: #selector(dismissView))
         loadFeed()
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -102,7 +107,47 @@ class FeedVC: UITableViewController {
         return TWTRTweetTableViewCell.height(for: tweet, style: .compact, width: view.bounds.width, showingActions: false)
         
     }
+}
 
 
-
+extension FeedVC {
+    
+    func setUpNavBarWithUser(user: TWTRUser) {
+        
+        let titleView = UIView()
+        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.addSubview(containerView)
+        
+        let profileImageView = UIImageView()
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView.contentMode = .scaleAspectFill
+        profileImageView.layer.cornerRadius = 20
+        profileImageView.clipsToBounds = true
+        profileImageView.loadImageUsingCacheWithURLString(user.profileImageURL)
+        containerView.addSubview(profileImageView)
+        
+        profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        let nameLabel = UILabel()
+        containerView.addSubview(nameLabel)
+        nameLabel.text = user.screenName
+        nameLabel.textColor = UIColor.white
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
+        nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+        
+        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        
+        self.navigationItem.titleView = titleView
+    }
 }

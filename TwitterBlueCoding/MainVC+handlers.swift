@@ -58,6 +58,7 @@ extension MainVC {
         let feedVC = FeedVC()
         feedVC.endPoint = Constants.Endpoints.mentions
         feedVC.isHashtag = false
+        feedVC.currentUser = self.currentUser
         let navVC = UINavigationController(rootViewController: feedVC)
         self.present(navVC, animated: true)
     }
@@ -111,6 +112,7 @@ extension MainVC {
         let feedVC = FeedVC()
         feedVC.endPoint = Constants.Endpoints.userTimeLine
         feedVC.isHashtag = false
+        feedVC.currentUser = self.currentUser
         let navVC = UINavigationController(rootViewController: feedVC)
         self.present(navVC, animated: true)
     }
