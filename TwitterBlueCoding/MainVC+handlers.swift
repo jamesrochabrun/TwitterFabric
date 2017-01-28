@@ -70,12 +70,22 @@ extension MainVC {
             alert -> Void in
             
             let queryTextField = alertController.textFields![0] as UITextField
-            if let queryText = queryTextField.text {
-                let feedVC = FeedVC()
-                feedVC.endPoint = Constants.Endpoints.search + queryText
-                feedVC.isHashtag = true
-                let navVC = UINavigationController(rootViewController: feedVC)
-                self.present(navVC, animated: true)
+            
+            var queryText = queryTextField.text
+            if let count = queryText?.length {
+                
+                if count <= 0 {
+                    queryText = "nohashtag"
+                } else {
+                    queryText = queryTextField.text
+                }
+                if let query = queryText {
+                    let feedVC = FeedVC()
+                    feedVC.endPoint = Constants.Endpoints.search + query
+                    feedVC.isHashtag = true
+                    let navVC = UINavigationController(rootViewController: feedVC)
+                    self.present(navVC, animated: true)
+                }
             }
         })
         

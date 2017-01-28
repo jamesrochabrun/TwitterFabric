@@ -66,5 +66,10 @@ extension UIColor {
             alpha: CGFloat(1.0)
         )
     }
-    
+}
+
+extension String {
+    var length: Int {
+        return self.characters.count
+    }
 }
