@@ -119,7 +119,7 @@ class MainVC : UIViewController , ProfileViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        profileView.delegate = self
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
         view.addSubview(gradientView)
         view.addSubview(profileView)

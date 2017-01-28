@@ -38,6 +38,7 @@ class ProfileVC: UIViewController {
         if let u = self.user {
             profileView.configureViewWithUser(u)
         }
+        profileView.turnOffGestureTap()
         print("USER: \(self.user)")
     }
 

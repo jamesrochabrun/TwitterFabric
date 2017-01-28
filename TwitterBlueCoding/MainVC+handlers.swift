@@ -84,6 +84,7 @@ extension MainVC {
                     let feedVC = FeedVC()
                     feedVC.endPoint = Constants.Endpoints.search + query
                     feedVC.isHashtag = true
+                    feedVC.currentUser = self.currentUser
                     let navVC = UINavigationController(rootViewController: feedVC)
                     self.present(navVC, animated: true)
                 }

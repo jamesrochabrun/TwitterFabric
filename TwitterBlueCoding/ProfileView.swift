@@ -63,6 +63,9 @@ class ProfileView: UIView {
         delegate.showVC()
     }
     
+    func turnOffGestureTap() {
+        self.profileImageView.isUserInteractionEnabled = false
+    }
     
     open func configureViewWithUser(_ user:TWTRUser) {
         
