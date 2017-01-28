@@ -10,24 +10,26 @@ import UIKit
 import TwitterKit
 
 
-//protocol ProfileViewDelegate {
-//    func showVC()
-//}
+protocol ProfileViewDelegate {
+    func showVC()
+}
 
 class ProfileView: UIView {
     
-//    var delegate: ProfileViewDelegate! = nil
+   var delegate: ProfileViewDelegate! = nil
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true
         imageView.clipsToBounds = true
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 4.0
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = self.frame.size.width/4
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(handleTapOnImageView)))
         return imageView
     }()
     
@@ -57,10 +59,11 @@ class ProfileView: UIView {
         self.addSubview(labelName)
     }
     
-//    func showFollowers() {
-//        delegate.showVC()
-//    }
-//    
+    func handleTapOnImageView() {
+        delegate.showVC()
+    }
+    
+    
     open func configureViewWithUser(_ user:TWTRUser) {
         
         labelName.text = user.name

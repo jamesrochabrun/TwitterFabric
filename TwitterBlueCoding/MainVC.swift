@@ -9,7 +9,7 @@
 import UIKit
 import TwitterKit
 
-class MainVC : UIViewController  {
+class MainVC : UIViewController , ProfileViewDelegate {
     
     let session = Twitter.sharedInstance().sessionStore.session()
     var currentUser:TWTRUser?
@@ -86,11 +86,17 @@ class MainVC : UIViewController  {
         view.addSubview(tweetButton)
         view.addSubview(tweetsButton)
         view.addSubview(followersButton)
-
-
-//        profileView.delegate = self
+        profileView.delegate = self
         loadUserInfo()
     }
+    
+    func showVC() {
+        let profileVC = ProfileVC ()
+        profileVC.user = self.currentUser
+        let navVC = UINavigationController(rootViewController: profileVC)
+        self.present(navVC, animated: true)
+    }
+
     
  
     override func viewWillLayoutSubviews() {
