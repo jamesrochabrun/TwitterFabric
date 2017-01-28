@@ -121,12 +121,50 @@ extension MainVC {
     
     func showFollowers() {
         
-        let followersVC = FollowersVC()
-        followersVC.currentUser = self.currentUser
-        let navigationVC = UINavigationController(rootViewController: followersVC)
+        let usersVC = UsersVC()
+        usersVC.currentUser = self.currentUser
+        usersVC.isSearch = false
+        usersVC.endPoint = Constants.Endpoints.followers
+        let navigationVC = UINavigationController(rootViewController: usersVC)
         self.present(navigationVC, animated: true, completion: nil)
     }
     
+    func showUsersFromSearch() {
+        
+        let alertController = UIAlertController(title: "Enter a query", message: "", preferredStyle: .alert)
+        
+        let searchAction = UIAlertAction(title: "Search", style: .default, handler: {
+            alert -> Void in
+            
+            let queryTextField = alertController.textFields![0] as UITextField
+            if let queryText = queryTextField.text {
+                let usersVC = UsersVC()
+                usersVC.currentUser = self.currentUser
+                usersVC.isSearch = true
+                usersVC.endPoint = Constants.Endpoints.searchUser + queryText
+                let navigationVC = UINavigationController(rootViewController: usersVC)
+                self.present(navigationVC, animated: true, completion: nil)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter a word"
+        }
+        
+        alertController.addAction(searchAction)
+        alertController.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+        
+    }
 
     
     

@@ -26,6 +26,8 @@ struct Constants {
         static let mentions = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
         static let userTimeLine = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
         static let search = "https://api.twitter.com/1.1/search/tweets.json?q=%23"
+        static let searchUser = "https://api.twitter.com/1.1/users/search.json?q=Twitter%20"
+        static let followers = "https://api.twitter.com/1.1/followers/list.json?"
     }
     
     

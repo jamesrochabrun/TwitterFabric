@@ -16,8 +16,8 @@ class MainVC : UIViewController , ProfileViewDelegate {
     
     //UIConstants
     let widthButton: CGFloat = 270.0
-    let heightbutton: CGFloat = 50.0
-    let padding: CGFloat = 12.0
+    let heightbutton: CGFloat = 44.0
+    let padding: CGFloat = 7.0
     let borderWidth: CGFloat = 2.0
     let cornerRadius: CGFloat = 20
     let fontSize:CGFloat = 18
@@ -103,6 +103,19 @@ class MainVC : UIViewController , ProfileViewDelegate {
         return button
     }()
     
+    lazy var searchUserButton : UIButton = {
+        let button = UIButton()
+        button.setTitle("Search User by Name", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
+        button.layer.borderWidth = self.borderWidth
+        button.layer.cornerRadius = self.cornerRadius
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
+        button.addTarget(self, action: #selector(showUsersFromSearch), for: .touchUpInside)
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +128,7 @@ class MainVC : UIViewController , ProfileViewDelegate {
         view.addSubview(followersButton)
         view.addSubview(mentionButton)
         view.addSubview(hashtagButton)
+        view.addSubview(searchUserButton)
         profileView.delegate = self
         loadUserInfo()
     }
@@ -160,6 +174,11 @@ class MainVC : UIViewController , ProfileViewDelegate {
         hashtagButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
         hashtagButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
         hashtagButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        searchUserButton.topAnchor.constraint(equalTo: hashtagButton.bottomAnchor, constant:padding).isActive = true
+        searchUserButton.widthAnchor.constraint(equalToConstant: widthButton).isActive = true
+        searchUserButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
+        searchUserButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
 
     }

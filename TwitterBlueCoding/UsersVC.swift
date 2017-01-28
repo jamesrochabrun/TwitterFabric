@@ -9,12 +9,15 @@
 import UIKit
 import TwitterKit
 
-class FollowersVC: UITableViewController {
+class UsersVC: UITableViewController {
     
     let session = Twitter.sharedInstance().sessionStore.session()
     private let cellID = "cell"
     var twitterUsersArray: [TWTRUser] = []
     var currentUser:TWTRUser?
+    var isSearch: Bool = false
+    var endPoint: String = ""
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,34 +42,45 @@ class FollowersVC: UITableViewController {
             return
         }
         let client = TWTRAPIClient(userID: userID)
-        let endPoint = "https://api.twitter.com/1.1/followers/list.json?"
         let params = ["id": userID]
         var clientError : NSError?
-        
-        let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: endPoint, parameters: params, error: &clientError)
+        let request = client.urlRequest(withMethod:Constants.HTTPMethods.get, url: self.endPoint, parameters: params, error: &clientError)
         
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if connectionError != nil {
                 print("Error: \(connectionError)")
             }
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
-                // print("json: \(json)")
-                let users  = json["users"] as! [[String: Any]]
-                for user in users {
-                    if let twitterUser = TWTRUser(jsonDictionary: user) {
-                        print("USERNAME = \(twitterUser.name)")
+                
+                if let data = data {
+                    
+                    var dataArray = [Any]()
+                    if self.isSearch {
                         
-                        //ADD THE USER IN AN ARRAY AND DISPLAY DATA
-                        self.twitterUsersArray.append(twitterUser)
-                        //RELOAD TABLEVIEW
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-
+                        dataArray = try JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
+                        
                     } else {
-                        print("TWITTERUSER NOT INITIALIZED")
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                        // print("json: \(json)")
+                        dataArray = json["users"] as! [[String: Any]]
                     }
+                    for user in dataArray {
+                        if let twitterUser = TWTRUser(jsonDictionary: user as! [String : Any]) {
+                            print("USERNAME = \(twitterUser.name)")
+                            
+                            //ADD THE USER IN AN ARRAY AND DISPLAY DATA
+                            self.twitterUsersArray.append(twitterUser)
+                            //RELOAD TABLEVIEW
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        } else {
+                            print("TWITTERUSER NOT INITIALIZED")
+                        }
+                    }
+                } else {
+                    //SHOW A ALERTCONTROLLER
+                    print("SHOW ALERT CONTROLLER")
                 }
             } catch let jsonError as NSError {
                 print("json error: \(jsonError.localizedDescription)")
@@ -104,7 +118,7 @@ class FollowersVC: UITableViewController {
     }
 }
 
-extension FollowersVC {
+extension UsersVC {
     
     func setUpNavBarWithUser(user: TWTRUser) {
         
