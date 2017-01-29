@@ -9,7 +9,7 @@
 import UIKit
 import TwitterKit
 
-class ProfileVC: UIViewController {
+class ProfileVC: UIViewController, ProfileViewDelegate {
     
     var user: TWTRUser?
     lazy var profileView: ProfileView = {
@@ -37,14 +37,21 @@ class ProfileVC: UIViewController {
         
         if let u = self.user {
             profileView.configureViewWithUser(u)
+            profileView.delegate = self
         }
-        profileView.turnOffGestureTap()
+        //instance method tha disable user interaction 
+       // profileView.turnOffGestureTap()
         print("USER: \(self.user)")
     }
 
     func dismissView() {
         self.navigationController?.dismiss(animated: true)
     }
+    
+    func showVC() {
+        dismissView()
+    }
+    
 
 
 }
