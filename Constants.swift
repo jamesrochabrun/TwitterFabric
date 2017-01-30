@@ -19,7 +19,11 @@ struct Constants {
     struct APPColor {
         static let coral = "#fe486c"
         static let purple = "#ff7555"
+        static let orange = "#ff6501"
+        static let pink = "fe01a9"
         static let buttonBorderWhite = "#ffffff"
+        static let lightBlue = "#00cdff"
+        static let lightGreen = "#00f0ac"
     }
     
     struct Endpoints {
