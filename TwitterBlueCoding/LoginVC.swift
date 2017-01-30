@@ -15,7 +15,7 @@ class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.hexStringToUIColor(Constants.APPColor.coral)
+        view.backgroundColor = UIColor.hexStringToUIColor("#ffffff")
         checkIfUserIsLoggedIn()
         setUpTwitterButton()
     }

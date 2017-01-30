@@ -20,7 +20,7 @@ class MainVC : UIViewController , ProfileViewDelegate {
     let padding: CGFloat = 7.0
     let borderWidth: CGFloat = 2.0
     let cornerRadius: CGFloat = 20
-    let fontSize:CGFloat = 18
+    let fontSize: CGFloat = 18
     
 
     lazy var profileView: ProfileView = {
@@ -33,86 +33,44 @@ class MainVC : UIViewController , ProfileViewDelegate {
         gv.frame = self.view.frame
         let gradient = CAGradientLayer()
         gradient.frame = self.view.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.coral).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.purple).cgColor]
+        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.lightGreen).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.lightBlue).cgColor]
         gv.layer.insertSublayer(gradient, at: 0)
         return gv
     }()
     
     lazy var followersButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Show Followers", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
-        button.layer.borderWidth = self.borderWidth
-        button.layer.cornerRadius = self.cornerRadius
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
-        button.addTarget(self, action: #selector(showFollowers), for: .touchUpInside)
+        button.createCustomButtonWith(title: "Show Followers", target: self, selector: #selector(showFollowers), borderWidth: self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
         return button
     }()
     
     lazy var tweetsButton : UIButton = {
         let button = UIButton()
-        button.setTitle("Show personal Twits", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
-        button.layer.borderWidth = self.borderWidth
-        button.layer.cornerRadius = self.cornerRadius
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
-        button.addTarget(self, action: #selector(showUserFeed), for: .touchUpInside)
+        button.createCustomButtonWith(title: "Show personal Twits", target: self, selector: #selector(showUserFeed), borderWidth: self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
         return button
     }()
     
     lazy var tweetButton : UIButton = {
         let button = UIButton()
-        button.setTitle("Make a Twit", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
-        button.layer.borderWidth = self.borderWidth
-        button.layer.cornerRadius = self.cornerRadius
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
-        button.addTarget(self, action: #selector(composeTweet), for: .touchUpInside)
+        button.createCustomButtonWith(title: "Make a twit", target: self, selector: #selector(composeTweet), borderWidth: self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
         return button
     }()
     
     lazy var mentionButton : UIButton = {
         let button = UIButton()
-        button.setTitle("Show Mentions", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
-        button.layer.borderWidth = self.borderWidth
-        button.layer.cornerRadius = self.cornerRadius
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
-        button.addTarget(self, action: #selector(showMentions), for: .touchUpInside)
+        button.createCustomButtonWith(title: "Show Mentions", target: self, selector: #selector(showMentions), borderWidth: self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
         return button
     }()
     
     lazy var hashtagButton : UIButton = {
         let button = UIButton()
-        button.setTitle("Search with hashtag", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
-        button.layer.borderWidth = self.borderWidth
-        button.layer.cornerRadius = self.cornerRadius
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
-        button.addTarget(self, action: #selector(showFeedFromQuery), for: .touchUpInside)
+        button.createCustomButtonWith(title: "Search with hashtag", target: self, selector: #selector(showFeedFromQuery), borderWidth:self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
         return button
     }()
     
     lazy var searchUserButton : UIButton = {
         let button = UIButton()
-        button.setTitle("Search User by Name", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.layer.borderColor = UIColor.hexStringToUIColor(Constants.APPColor.buttonBorderWhite).cgColor
-        button.layer.borderWidth = self.borderWidth
-        button.layer.cornerRadius = self.cornerRadius
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
-        button.addTarget(self, action: #selector(showUsersFromSearch), for: .touchUpInside)
+        button.createCustomButtonWith(title: "Search by user Name", target: self, selector: #selector(showUsersFromSearch), borderWidth: self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
         return button
     }()
     
@@ -123,12 +81,6 @@ class MainVC : UIViewController , ProfileViewDelegate {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogOut))
         view.addSubview(gradientView)
         view.addSubview(profileView)
-        view.addSubview(tweetButton)
-        view.addSubview(tweetsButton)
-        view.addSubview(followersButton)
-        view.addSubview(mentionButton)
-        view.addSubview(hashtagButton)
-        view.addSubview(searchUserButton)
         profileView.delegate = self
         loadUserInfo()
     }

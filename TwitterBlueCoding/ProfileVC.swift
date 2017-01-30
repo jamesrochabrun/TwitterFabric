@@ -20,11 +20,7 @@ class ProfileVC: UIViewController, ProfileViewDelegate {
 
     lazy var gradientView: UIView = {
         let gv = UIView()
-        gv.frame = self.view.frame
-        let gradient = CAGradientLayer()
-        gradient.frame = self.view.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.coral).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.purple).cgColor]
-        gv.layer.insertSublayer(gradient, at: 0)
+        gv.createViewGradientwithFrame(self.view.frame, inView: self.view)
         return gv
     }()
 
