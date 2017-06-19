@@ -39,8 +39,8 @@ class LoginVC: UIViewController {
             
             if let token = session?.authToken {
                 print("TOKEN: \(token)")
-                print("USERNAME : \(session?.userName)")
-                print("id: \(session?.userID)")
+                print("USERNAME : \(String(describing: session?.userName))")
+                print("id: \(String(describing: session?.userID))")
 
             }
             if let secretToken = session?.authTokenSecret {
@@ -58,7 +58,7 @@ class LoginVC: UIViewController {
         let userDefaults = UserDefaults.standard
         let userID = userDefaults.string(forKey: "userID")
         
-        print("USERID111: \(userID)")
+        print("USERID111: \(String(describing: userID))")
         //si userid no fue guardado
         if userID != nil {
             let mainVC = MainVC()

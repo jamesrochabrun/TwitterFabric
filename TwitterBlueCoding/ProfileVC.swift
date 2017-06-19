@@ -37,7 +37,7 @@ class ProfileVC: UIViewController, ProfileViewDelegate {
         }
         //instance method tha disable user interaction 
        // profileView.turnOffGestureTap()
-        print("USER: \(self.user)")
+        print("USER: \(String(describing: self.user))")
     }
 
     func dismissView() {

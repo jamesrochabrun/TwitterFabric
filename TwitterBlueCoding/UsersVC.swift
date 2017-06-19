@@ -48,7 +48,7 @@ class UsersVC: UITableViewController {
         
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if connectionError != nil {
-                print("Error: \(connectionError)")
+                print("Error: \(String(describing: connectionError))")
             }
             do {
                 
