@@ -100,10 +100,8 @@ extension UIView {
         gradient.frame = view.bounds
         gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.orange).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.pink).cgColor]
         self.layer.insertSublayer(gradient, at: 0)
-        view.addSubview(self)
     }
     
-
     
 }
 

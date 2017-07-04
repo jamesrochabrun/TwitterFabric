@@ -44,7 +44,7 @@ extension MainVC {
         
         DispatchQueue.main.async {
             self.navigationItem.title = user.screenName
-            print("UUUUUUUUUU : \(user.screenName)")
+            print("User: \(user.screenName)")
             //CREATE  A SUBVIEW PROFILE FOR USER DATA
             self.profileView.configureViewWithUser(user)
             
@@ -175,7 +175,6 @@ extension MainVC {
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
         }
-        
         
     }
 

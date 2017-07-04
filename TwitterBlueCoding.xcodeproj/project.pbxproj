@@ -22,6 +22,7 @@
 		7B66D8741E3BEA670097179D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D8731E3BEA670097179D /* ProfileView.swift */; };
 		7B66D8761E3C29D80097179D /* MainVC+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D8751E3C29D80097179D /* MainVC+handlers.swift */; };
 		7B66D8781E3C2C7A0097179D /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66D8771E3C2C7A0097179D /* ProfileVC.swift */; };
+		7B86366A1EA125B80020EFC8 /* UsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636691EA125B80020EFC8 /* UsersCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		7B66D8731E3BEA670097179D /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		7B66D8751E3C29D80097179D /* MainVC+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainVC+handlers.swift"; sourceTree = "<group>"; };
 		7B66D8771E3C2C7A0097179D /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		7B8636691EA125B80020EFC8 /* UsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				7B66D8751E3C29D80097179D /* MainVC+handlers.swift */,
 				7B005D331E3C326D00C6F4E8 /* FeedVC.swift */,
 				7B66D86E1E3BAD9F0097179D /* UsersVC.swift */,
+				7B8636691EA125B80020EFC8 /* UsersCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				7B5F8C0A1E3A9B3E00DC1B89 /* MainVC.swift in Sources */,
 				7B66D8741E3BEA670097179D /* ProfileView.swift in Sources */,
 				7B5F8BF81E3A832F00DC1B89 /* LoginVC.swift in Sources */,
+				7B86366A1EA125B80020EFC8 /* UsersCell.swift in Sources */,
 				7B66D86F1E3BAD9F0097179D /* UsersVC.swift in Sources */,
 				7B66D8711E3BB4130097179D /* Extensions.swift in Sources */,
 				7B5F8BF61E3A832F00DC1B89 /* AppDelegate.swift in Sources */,

@@ -10,13 +10,13 @@ import UIKit
 import TwitterKit
 
 
-protocol ProfileViewDelegate {
+protocol ProfileViewDelegate: class {
     func showVC()
 }
 
 class ProfileView: UIView {
     
-   var delegate: ProfileViewDelegate! = nil
+   weak var delegate: ProfileViewDelegate?
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -60,7 +60,7 @@ class ProfileView: UIView {
     }
     
     func handleTapOnImageView() {
-        delegate.showVC()
+        delegate?.showVC()
     }
     
     func turnOffGestureTap() {
