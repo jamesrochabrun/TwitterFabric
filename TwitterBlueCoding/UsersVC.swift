@@ -25,6 +25,8 @@ class UsersVC: UITableViewController {
         if let u = self.currentUser {
             setUpNavBarWithUser(user:u)
         }
+        
+        print("endpoint: \(endPoint)")
 
         loadUserFollowers()
         tableView.register(UserCell.self, forCellReuseIdentifier: cellID)
@@ -48,24 +50,24 @@ class UsersVC: UITableViewController {
         
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if connectionError != nil {
-                print("Error: \(connectionError)")
+                print("Error: \(String(describing: connectionError))")
             }
             do {
                 
                 if let data = data {
                     
-                    var dataArray = [Any]()
+                    var dataArray = [[String: Any]]()
                     if self.isSearch {
                         
                         dataArray = try JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
                         
                     } else {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                        // print("json: \(json)")
                         dataArray = json["users"] as! [[String: Any]]
                     }
                     for user in dataArray {
-                        if let twitterUser = TWTRUser(jsonDictionary: user as! [String : Any]) {
+                        
+                        if let twitterUser = TWTRUser(jsonDictionary: user) {
                             print("USERNAME = \(twitterUser.name)")
                             
                             //ADD THE USER IN AN ARRAY AND DISPLAY DATA

@@ -49,7 +49,7 @@ class FeedVC: UITableViewController {
         
         client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             if connectionError != nil {
-                print("Error: \(connectionError)")
+                print("Error: \(String(describing: connectionError))")
             }
             do {
                 if let data = data {
@@ -59,12 +59,12 @@ class FeedVC: UITableViewController {
                         print("json: \(json)")
                         let arr = json["statuses"] as! [[String: Any]]
                         self.tweets = TWTRTweet.tweets(withJSONArray: arr) as! [TWTRTweet]
-                        print("TEXT: \(self.tweets.first?.text)")
+                        print("TEXT: \(String(describing: self.tweets.first?.text))")
                     } else {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
                         print("json: \(json)")
                         self.tweets = TWTRTweet.tweets(withJSONArray: json) as! [TWTRTweet]
-                        print("TEXT: \(self.tweets.first?.text)")
+                        print("TEXT: \(String(describing: self.tweets.first?.text))")
                     }
   
                     print("Count: \(self.tweets.count)")

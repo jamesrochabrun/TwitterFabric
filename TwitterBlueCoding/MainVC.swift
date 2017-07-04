@@ -70,7 +70,7 @@ class MainVC : UIViewController , ProfileViewDelegate {
     
     lazy var searchUserButton : UIButton = {
         let button = UIButton()
-        button.createCustomButtonWith(title: "Search by user Name", target: self, selector: #selector(showUsersFromSearch), borderWidth: self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
+        button.createCustomButtonWith(title: "Find users with name", target: self, selector: #selector(showUsersFromSearch), borderWidth: self.borderWidth, cornerRadius: self.cornerRadius, fontSize: self.fontSize, inView: self.view)
         return button
     }()
     
@@ -132,10 +132,7 @@ class MainVC : UIViewController , ProfileViewDelegate {
         searchUserButton.heightAnchor.constraint(equalToConstant: heightbutton).isActive = true
         searchUserButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
-
     }
-
-
 }
 
 

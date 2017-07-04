@@ -150,7 +150,8 @@ extension MainVC {
             alert -> Void in
             
             let queryTextField = alertController.textFields![0] as UITextField
-            if let queryText = queryTextField.text {
+            
+            if let queryText = queryTextField.text?.replacingOccurrences(of: " ", with: "") {
                 let usersVC = UsersVC()
                 usersVC.currentUser = self.currentUser
                 usersVC.isSearch = true
